@@ -1,13 +1,17 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Windows;
+﻿using System.Windows;
 
-namespace SZOptimizer;
-
-/// <summary>
-/// Interaction logic for App.xaml
-/// </summary>
-public partial class App : Application
+namespace SZOptimizer
 {
+    public partial class App : Application
+    {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            this.DispatcherUnhandledException += (s, args) =>
+            {
+                MessageBox.Show(args.Exception.ToString(), "Ошибка при запуске SZOptimizer");
+                args.Handled = true;
+            };
+            base.OnStartup(e);
+        }
+    }
 }
-
