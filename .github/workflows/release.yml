@@ -1,0 +1,47 @@
+name: Build and Sign SZ Optimizer Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  id-token: write
+  attestations: write
+
+jobs:
+  build-and-sign:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Publish SZOptimizer.exe
+        run: dotnet publish SZOptimizer.csproj -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true -o ./publish
+
+      - name: Generate SHA256 Checksum
+        shell: pwsh
+        run: |
+          $hash = (Get-FileHash ./publish/SZOptimizer.exe -Algorithm SHA256).Hash
+          "$hash  SZOptimizer.exe" | Out-File -FilePath ./publish/SZOptimizer.exe.sha256 -Encoding ascii
+
+      - name: Sign & Attest Build Provenance (GitHub Official)
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: './publish/SZOptimizer.exe'
+
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ./publish/SZOptimizer.exe
+            ./publish/SZOptimizer.exe.sha256
+          generate_release_notes: true
