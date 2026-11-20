@@ -1,272 +1,195 @@
-<Window x:Class="SZOptimizer.MainWindow"
+﻿<Window x:Class="SZOptimizer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="SZ Optimizer v1.1 | STALZONE Edition (by DFKryakin)" Height="650" Width="900"
+        Title="SZ Optimizer v1.2 | STALZONE Edition (by DFKryakin)" Height="640" Width="900"
         Background="#18191C" Foreground="#FFFFFF" WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize" FontFamily="Segoe UI" Closing="Window_Closing">
-
     <Window.Resources>
-        <Style TargetType="ToolTip">
-            <Setter Property="Background" Value="#111214"/>
-            <Setter Property="Foreground" Value="#E0E0E0"/>
-            <Setter Property="BorderBrush" Value="#00D4AA"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="10"/>
-            <Setter Property="MaxWidth" Value="350"/>
-        </Style>
-        <Style x:Key="HelpBadge" TargetType="Border">
-            <Setter Property="Width" Value="19"/>
-            <Setter Property="Height" Value="19"/>
-            <Setter Property="CornerRadius" Value="10"/>
-            <Setter Property="Background" Value="#2F3136"/>
-            <Setter Property="Cursor" Value="Help"/>
-            <Setter Property="Margin" Value="8,0,0,0"/>
-        </Style>
-        <Style TargetType="CheckBox">
-            <Setter Property="Foreground" Value="#F2F3F5"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Cursor" Value="Hand"/>
-        </Style>
+        <Style TargetType="ToolTip"><Setter Property="Background" Value="#111214"/><Setter Property="Foreground" Value="#E0E0E0"/><Setter Property="BorderBrush" Value="#00D4AA"/><Setter Property="BorderThickness" Value="1"/><Setter Property="Padding" Value="10"/><Setter Property="MaxWidth" Value="350"/></Style>
+        <Style x:Key="HelpBadge" TargetType="Border"><Setter Property="Width" Value="19"/><Setter Property="Height" Value="19"/><Setter Property="CornerRadius" Value="10"/><Setter Property="Background" Value="#2F3136"/><Setter Property="Cursor" Value="Help"/><Setter Property="Margin" Value="8,0,0,0"/></Style>
+        <Style TargetType="CheckBox"><Setter Property="Foreground" Value="#F2F3F5"/><Setter Property="FontSize" Value="13"/><Setter Property="VerticalContentAlignment" Value="Center"/><Setter Property="Cursor" Value="Hand"/></Style>
     </Window.Resources>
-
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="210"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-
+        <Grid.ColumnDefinitions><ColumnDefinition Width="215"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
         <Border Grid.Column="0" Background="#1E1F22" BorderBrush="#2B2D31" BorderThickness="0,0,1,0">
             <DockPanel LastChildFill="False" Margin="12">
                 <StackPanel DockPanel.Dock="Top">
                     <TextBlock Text="⚡ SZ OPTIMIZER" FontSize="18" FontWeight="Bold" Foreground="#00D4AA" Margin="4,6,0,2"/>
-                    <TextBlock Text="STALZONE Edition v1.1" FontSize="11" Foreground="#80848E" Margin="4,0,0,20"/><TextBlock Text="Создатель: DFKryakin" FontSize="11.5" FontWeight="SemiBold" Foreground="#00D4AA" Margin="4,4,0,2"/><TextBlock Text="Discord: bylmewka" FontSize="11" Foreground="#B5BAC1" Margin="4,0,0,16"/>
-                    <Button x:Name="TabWinBtn" Content="🚀 Windows (v1.0)" Height="36" Background="#2B2D31" Foreground="#FFFFFF" FontWeight="SemiBold" BorderThickness="0" HorizontalContentAlignment="Left" Padding="12,0" Margin="0,0,0,6" Cursor="Hand" Click="TabWinBtn_Click"/>
-                    <Button x:Name="TabCrossBtn" Content="🎯 Прицел (v1.1)" Height="36" Background="Transparent" Foreground="#B5BAC1" FontWeight="SemiBold" BorderThickness="0" HorizontalContentAlignment="Left" Padding="12,0" Margin="0,0,0,6" Cursor="Hand" Click="TabCrossBtn_Click"/>
-                    <Button Content="⚙️ Железо (в v1.2)" Height="34" Background="Transparent" Foreground="#6D6F78" BorderThickness="0" HorizontalContentAlignment="Left" Padding="12,0" Margin="0,0,0,4" IsEnabled="False"/>
-                    <Button Content="🔥 Разгон (в v1.3)" Height="34" Background="Transparent" Foreground="#6D6F78" BorderThickness="0" HorizontalContentAlignment="Left" Padding="12,0" Margin="0,0,0,4" IsEnabled="False"/>
+                    <TextBlock Text="STALZONE Edition v1.2" FontSize="11" Foreground="#80848E" Margin="4,0,0,4"/>
+                    <TextBlock Text="Создатель: DFKryakin" FontSize="11.5" FontWeight="SemiBold" Foreground="#00D4AA" Margin="4,0,0,2"/>
+                    <TextBlock Text="Discord: bylmewka" FontSize="11" Foreground="#B5BAC1" Margin="4,0,0,18"/>
+                    <Button x:Name="TabWinBtn" Content="🚀 Оптимизация (v1.2)" Height="36" Background="#2B2D31" Foreground="#FFFFFF" FontWeight="SemiBold" BorderThickness="0" HorizontalContentAlignment="Left" Padding="12,0" Margin="0,0,0,6" Cursor="Hand" Click="TabWinBtn_Click"/>
+                    <Button x:Name="TabCrossBtn" Content="🎯 Прицел (0% потерь)" Height="36" Background="Transparent" Foreground="#B5BAC1" FontWeight="SemiBold" BorderThickness="0" HorizontalContentAlignment="Left" Padding="12,0" Margin="0,0,0,6" Cursor="Hand" Click="TabCrossBtn_Click"/>
+                    <Button x:Name="TabHwBtn" Content="⚙️ Java и Железо" Height="36" Background="Transparent" Foreground="#B5BAC1" FontWeight="SemiBold" BorderThickness="0" HorizontalContentAlignment="Left" Padding="12,0" Margin="0,0,0,6" Cursor="Hand" Click="TabHwBtn_Click"/>
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Bottom">
                     <Border Background="#2B2D31" CornerRadius="6" Padding="10" Margin="0,0,0,8">
-                        <StackPanel>
-                            <TextBlock x:Name="BackupStatusText" Text="🛡️ Бэкап: Ожидание" FontSize="12" Foreground="#00D4AA" FontWeight="SemiBold"/>
-                            <TextBlock Text="Автооткат при вылете" FontSize="11" Foreground="#949BA4" Margin="0,2,0,0"/>
-                        </StackPanel>
+                        <StackPanel><TextBlock x:Name="BackupStatusText" Text="🛡️ Статус: Ожидание игры" FontSize="12" Foreground="#00D4AA" FontWeight="SemiBold"/><TextBlock Text="Безопасный профиль" FontSize="10.5" Foreground="#949BA4" Margin="0,2,0,0"/></StackPanel>
                     </Border>
                     <Button x:Name="BtnRollback" Content="↺ Откатить всё" Height="36" Background="#3A2326" Foreground="#FF6B6B" FontWeight="SemiBold" BorderBrush="#FF6B6B" BorderThickness="1" Cursor="Hand" Click="BtnRollback_Click"/>
                 </StackPanel>
             </DockPanel>
         </Border>
-
         <Grid Grid.Column="1" Margin="16">
             <Grid x:Name="PanelWindows" Visibility="Visible">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-
+                <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
                 <Border Grid.Row="0" Background="#222428" CornerRadius="8" Padding="12" Margin="0,0,0,10">
                     <StackPanel>
                         <TextBlock x:Name="DiagnosticsText" Text="● ДИАГНОСТИКА: Проверка системы..." FontSize="12.5" Foreground="#00D4AA" FontWeight="SemiBold"/>
-                        <CheckBox x:Name="ChkAutoStart" Content="⚡ Автозапуск с Windows без окна прав Администратора (Тихий режим)" Margin="0,8,0,0" Foreground="#00D4AA" FontWeight="SemiBold" Checked="ChkAutoStart_Changed" Unchecked="ChkAutoStart_Changed"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,6"><TextBlock x:Name="DiagText" Text="• ДИАГНОСТИКА: сканирование..." Foreground="#00D4AA" FontWeight="SemiBold" VerticalAlignment="Center" Margin="0,0,10,0"/><Button Content="🤖 Автоподбор под железо" Padding="8,2" FontSize="11" Background="#2B2D31" Foreground="#00D4AA" BorderBrush="#00D4AA" BorderThickness="1" Cursor="Hand" Click="BtnAutoTune_Click"/></StackPanel><CheckBox x:Name="ChkAutoStart" Content="⚡ Автозапуск с Windows без окна прав Администратора (Тихий режим)" Margin="0,8,0,0" Foreground="#00D4AA" FontWeight="SemiBold" Checked="ChkAutoStart_Changed" Unchecked="ChkAutoStart_Changed"/>
                     </StackPanel>
                 </Border>
                 <Border Grid.Row="1" Background="#222428" CornerRadius="8" Padding="14">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                <CheckBox x:Name="ChkRamShader" IsChecked="True" Content="🟢 1. Умная очистка кэша шейдеров и ОЗУ (Standby List)"/>
-                                <Border Style="{StaticResource HelpBadge}" ToolTipService.InitialShowDelay="100" ToolTip="Очищает старый кэш OpenGL/NVIDIA и сбрасывает мусор в ОЗУ."><TextBlock Text="?" Foreground="#00D4AA" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                <CheckBox x:Name="ChkNetwork" IsChecked="False" Content="🟢 2. Оптимизация сети (Откл. задержки Nagle и сна адаптера)"/>
-                                <Border Style="{StaticResource HelpBadge}" ToolTipService.InitialShowDelay="100" ToolTip="Включает TCPNoDelay=1 и отключает энергосбережение сетевой карты."><TextBlock Text="?" Foreground="#00D4AA" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                <CheckBox x:Name="ChkInput" IsChecked="False" Content="🟢 3. Честный ввод мыши 1:1 и отключение сна USB-портов"/>
-                                <Border Style="{StaticResource HelpBadge}" ToolTipService.InitialShowDelay="100" ToolTip="Отключает акселерацию мыши, залипание клавиш и сон USB."><TextBlock Text="?" Foreground="#00D4AA" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                <CheckBox x:Name="ChkGameBoost" IsChecked="True" Content="🟡 4. Сессионный игровой режим (Приоритет + пауза служб)"/>
-                                <Border Style="{StaticResource HelpBadge}" ToolTipService.InitialShowDelay="100" ToolTip="Выставляет высокий приоритет игре и ставит на паузу поиск/телеметрию Windows."><TextBlock Text="?" Foreground="#00D4AA" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                <CheckBox x:Name="ChkFullscreen" IsChecked="False" Content="🟢 5. Фикс полноэкранного режима и высокий приоритет ГП"/>
-                                <Border Style="{StaticResource HelpBadge}" ToolTipService.InitialShowDelay="100" ToolTip="Отключает оптимизацию во весь экран и назначает игре мощный ГП."><TextBlock Text="?" Foreground="#00D4AA" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                <CheckBox x:Name="ChkTimer" IsChecked="True" Content="🟡 6. Ускорение системного таймера Windows (1.0 мс)"/>
-                                <Border Style="{StaticResource HelpBadge}" ToolTipService.InitialShowDelay="100" ToolTip="Сжимает шаг таймера прерываний Windows с 15.6 мс до 1.0 мс на время игры."><TextBlock Text="?" Foreground="#00D4AA" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                <CheckBox x:Name="ChkMmcss" IsChecked="False" Content="🟡 7. Настройка планировщика игр Windows (MMCSS Priority)"/>
-                                <Border Style="{StaticResource HelpBadge}" ToolTipService.InitialShowDelay="100" ToolTip="Настраивает ветку реестра Multimedia\Tasks\Games на высокий приоритет."><TextBlock Text="?" Foreground="#00D4AA" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                <CheckBox x:Name="ChkDns" IsChecked="False" Content="🔴 8. Опциональный подбор быстрого DNS (только по тесту)"/>
-                                <Border Style="{StaticResource HelpBadge}" ToolTipService.InitialShowDelay="100" ToolTip="Проверяет пинг до Cloudflare/Google/Яндекс и ставит быстрый DNS."><TextBlock Text="?" Foreground="#00D4AA" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                <CheckBox x:Name="ChkCleanLogs" IsChecked="True" Content="🟢 9. Очистка старых логов и дампов крашей STALZONE"/>
-                                <Border Style="{StaticResource HelpBadge}" ToolTipService.InitialShowDelay="100" ToolTip="Удаляет старые текстовые логи и дампы, не трогая настройки игры."><TextBlock Text="?" Foreground="#00D4AA" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                <CheckBox x:Name="ChkTrayMode" IsChecked="True" Content="🟢 10. Сворачивать в трей и ждать запуск/выход игры"/>
-                                <Border Style="{StaticResource HelpBadge}" ToolTipService.InitialShowDelay="100" ToolTip="Сворачивает программу и автоматически возвращает настройки при выходе."><TextBlock Text="?" Foreground="#00D4AA" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
-                                <CheckBox x:Name="ChkSuspendBrowsers" IsChecked="True" Content="🟡 11. Умная заморозка фоновых браузеров и лаунчеров (Suspend)"/>
-                                <Border Style="{StaticResource HelpBadge}" ToolTipService.InitialShowDelay="100" ToolTip="Ставит на паузу Chrome/Edge/Opera/Steam на время катки (Discord не трогает)."><TextBlock Text="?" Foreground="#00D4AA" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,10"><Ellipse x:Name="Ind1" Width="9" Height="9" Fill="#6D6F78" Margin="0,0,8,0"/><CheckBox x:Name="ChkAffinity" IsChecked="True" Content="1. Изоляция игры от нулевого ядра CPU 0 (Ровный FPS)"/><Border Style="{StaticResource HelpBadge}" ToolTip="Переводит потоки игры на свободные ядра CPU 1..N, убирая их с CPU 0."><TextBlock Text="?" Foreground="#00D4AA" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border></StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,10"><Ellipse x:Name="Ind2" Width="9" Height="9" Fill="#6D6F78" Margin="0,0,8,0"/><CheckBox x:Name="ChkGameBoost" IsChecked="True" Content="2. Приоритет игры «Выше среднего» + пауза служб поиска/телеметрии"/><Border Style="{StaticResource HelpBadge}" ToolTip="Поднимает приоритет игры до AboveNormal (не душит DWM) и ставит на паузу поиск и телеметрию Windows."><TextBlock Text="?" Foreground="#00D4AA" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border></StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,10"><Ellipse x:Name="Ind3" Width="9" Height="9" Fill="#6D6F78" Margin="0,0,8,0"/><CheckBox x:Name="ChkSoftBrowsers" IsChecked="True" Content="3. Мягкая разгрузка фоновых вкладок браузеров (2-й монитор работает)"/><Border Style="{StaticResource HelpBadge}" ToolTip="Снижает приоритет фоновых процессов браузеров без окна. YouTube Music и Discord работают без задержек."><TextBlock Text="?" Foreground="#00D4AA" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border></StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,10"><Ellipse x:Name="Ind4" Width="9" Height="9" Fill="#6D6F78" Margin="0,0,8,0"/><CheckBox x:Name="ChkCleanLogs" IsChecked="True" Content="4. Очистка старых текстовых логов и дампов крашей STALZONE"/><Border Style="{StaticResource HelpBadge}" ToolTip="Удаляет старые логи в папке игры, не трогая кэш шейдеров NVIDIA и настройки."><TextBlock Text="?" Foreground="#00D4AA" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border></StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,10"><Ellipse x:Name="Ind5" Width="9" Height="9" Fill="#6D6F78" Margin="0,0,8,0"/><CheckBox x:Name="ChkTrayMode" IsChecked="True" Content="5. Фоновый режим: авто-перехват запуска и выхода из игры"/><Border Style="{StaticResource HelpBadge}" ToolTip="Сворачивает оптимизатор и автоматически включает буст + прицел при входе в STALZONE."><TextBlock Text="?" Foreground="#00D4AA" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border></StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,10"><Ellipse x:Name="Ind6" Width="9" Height="9" Fill="#6D6F78" Margin="0,0,8,0"/><CheckBox x:Name="ChkTimer" IsChecked="False" Content="6. Сжатие системного таймера Windows до 1.0 мс (опционально)"/><Border Style="{StaticResource HelpBadge}" ToolTip="Уменьшает шаг таймера прерываний. На транзитной графике лучше держать выключенным."><TextBlock Text="?" Foreground="#00D4AA" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border></StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,10"><Ellipse x:Name="Ind7" Width="9" Height="9" Fill="#6D6F78" Margin="0,0,8,0"/><CheckBox x:Name="ChkNetwork" IsChecked="False" Content="7. Оптимизация TCP/IP (Nagle Off — не включать, если уже настроено)"/><Border Style="{StaticResource HelpBadge}" ToolTip="Включает TCPNoDelay=1 в реестре. Если сеть настроена вручную — оставьте выключенным."><TextBlock Text="?" Foreground="#00D4AA" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border></StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,4"><Ellipse x:Name="Ind8" Width="9" Height="9" Fill="#6D6F78" Margin="0,0,8,0"/><CheckBox x:Name="ChkInput" IsChecked="False" Content="8. Честный ввод мыши 1:1 и отключение залипания Shift"/><Border Style="{StaticResource HelpBadge}" ToolTip="Отключает акселерацию мыши в Windows и окно залипания клавиш."><TextBlock Text="?" Foreground="#00D4AA" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border></StackPanel>
                         </StackPanel>
                     </ScrollViewer>
                 </Border>
-
                 <Grid Grid.Row="2" Margin="0,12,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Button x:Name="BtnAutoWatch" Grid.Column="0" Height="44" Margin="0,0,8,0" Content="👁️ ВКЛЮЧИТЬ АВТО-ОЖИДАНИЕ STALZONE" Background="#00D4AA" Foreground="#111214" FontSize="13.5" FontWeight="Bold" BorderThickness="0" Cursor="Hand" Click="BtnAutoWatch_Click"/>
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="2*"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                    <Button x:Name="BtnAutoWatch" Grid.Column="0" Height="44" Margin="0,0,8,0" Content="👁️ АВТО-ОЖИДАНИЕ STALZONE" Background="#00D4AA" Foreground="#111214" FontSize="13.5" FontWeight="Bold" BorderThickness="0" Cursor="Hand" Click="BtnAutoWatch_Click"/>
                     <Button x:Name="BtnApplyNow" Grid.Column="1" Height="44" Content="▶ ПРИМЕНИТЬ СЕЙЧАС" Background="#313338" Foreground="White" FontSize="13" FontWeight="SemiBold" BorderThickness="0" Cursor="Hand" Click="BtnApplyNow_Click"/>
                 </Grid>
             </Grid>
             <Grid x:Name="PanelCrosshair" Visibility="Collapsed">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-
+                <Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
                 <Border Grid.Row="0" Background="#222428" CornerRadius="8" Padding="14">
                     <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="265"/>
-                        </Grid.ColumnDefinitions>
-
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="265"/></Grid.ColumnDefinitions>
                         <ScrollViewer Grid.Column="0" Margin="0,0,12,0" VerticalScrollBarVisibility="Auto">
                             <StackPanel>
-                                <TextBlock Text="1. Выберите форму прицела (визуальная галерея):" FontSize="12.5" FontWeight="Bold" Foreground="#00D4AA" Margin="0,0,0,6"/>
+                                <TextBlock Text="1. Выберите форму прицела:" FontSize="12.5" FontWeight="Bold" Foreground="#00D4AA" Margin="0,0,0,6"/>
                                 <UniformGrid x:Name="PresetGalleryGrid" Columns="5" Margin="0,0,0,10"/>
-
-                                <TextBlock Text="2. Визуальная палитра цвета (HSV + Прозрачность):" FontSize="12.5" FontWeight="Bold" Foreground="#00D4AA" Margin="0,0,0,6"/>
+                                <TextBlock Text="2. Визуальная палитра цвета (HSV):" FontSize="12.5" FontWeight="Bold" Foreground="#00D4AA" Margin="0,0,0,6"/>
                                 <Grid Margin="0,0,0,10">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="140"/>
-                                        <ColumnDefinition Width="26"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="140"/><ColumnDefinition Width="26"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
                                     <Border Grid.Column="0" Height="130" BorderBrush="#383A40" BorderThickness="1" ClipToBounds="True">
                                         <Canvas x:Name="SvCanvas" Width="138" Height="128" Background="#FF00D4AA" MouseDown="SvCanvas_MouseDown" MouseMove="SvCanvas_MouseMove" Cursor="Cross">
-                                            <Rectangle Width="138" Height="128" IsHitTestVisible="False">
-                                                <Rectangle.Fill>
-                                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                                        <GradientStop Color="#FFFFFFFF" Offset="0"/>
-                                                        <GradientStop Color="#00FFFFFF" Offset="1"/>
-                                                    </LinearGradientBrush>
-                                                </Rectangle.Fill>
-                                            </Rectangle>
-                                            <Rectangle Width="138" Height="128" IsHitTestVisible="False">
-                                                <Rectangle.Fill>
-                                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                                        <GradientStop Color="#00000000" Offset="0"/>
-                                                        <GradientStop Color="#FF000000" Offset="1"/>
-                                                    </LinearGradientBrush>
-                                                </Rectangle.Fill>
-                                            </Rectangle>
+                                            <Rectangle Width="138" Height="128" IsHitTestVisible="False"><Rectangle.Fill><LinearGradientBrush StartPoint="0,0" EndPoint="1,0"><GradientStop Color="#FFFFFFFF" Offset="0"/><GradientStop Color="#00FFFFFF" Offset="1"/></LinearGradientBrush></Rectangle.Fill></Rectangle>
+                                            <Rectangle Width="138" Height="128" IsHitTestVisible="False"><Rectangle.Fill><LinearGradientBrush StartPoint="0,0" EndPoint="0,1"><GradientStop Color="#00000000" Offset="0"/><GradientStop Color="#FF000000" Offset="1"/></LinearGradientBrush></Rectangle.Fill></Rectangle>
                                             <Ellipse x:Name="SvMarker" Width="10" Height="10" Stroke="White" StrokeThickness="1.5" Canvas.Left="133" Canvas.Top="-5" IsHitTestVisible="False"/>
                                         </Canvas>
                                     </Border>
-
                                     <Border Grid.Column="1" Height="130" Margin="6,0" BorderBrush="#383A40" BorderThickness="1" ClipToBounds="True">
                                         <Canvas x:Name="HueCanvas" Background="Transparent" Width="14" Height="128" MouseDown="HueCanvas_MouseDown" MouseMove="HueCanvas_MouseMove" Cursor="SizeNS">
-                                            <Rectangle Width="14" Height="128" IsHitTestVisible="False">
-                                                <Rectangle.Fill>
-                                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                                        <GradientStop Color="#FFFF0000" Offset="0.00"/>
-                                                        <GradientStop Color="#FFFFFF00" Offset="0.17"/>
-                                                        <GradientStop Color="#FF00FF00" Offset="0.33"/>
-                                                        <GradientStop Color="#FF00FFFF" Offset="0.50"/>
-                                                        <GradientStop Color="#FF0000FF" Offset="0.67"/>
-                                                        <GradientStop Color="#FFFF00FF" Offset="0.83"/>
-                                                        <GradientStop Color="#FFFF0000" Offset="1.00"/>
-                                                    </LinearGradientBrush>
-                                                </Rectangle.Fill>
-                                            </Rectangle>
+                                            <Rectangle Width="14" Height="128" IsHitTestVisible="False"><Rectangle.Fill><LinearGradientBrush StartPoint="0,0" EndPoint="0,1"><GradientStop Color="#FFFF0000" Offset="0.00"/><GradientStop Color="#FFFFFF00" Offset="0.17"/><GradientStop Color="#FF00FF00" Offset="0.33"/><GradientStop Color="#FF00FFFF" Offset="0.50"/><GradientStop Color="#FF0000FF" Offset="0.67"/><GradientStop Color="#FFFF00FF" Offset="0.83"/><GradientStop Color="#FFFF0000" Offset="1.00"/></LinearGradientBrush></Rectangle.Fill></Rectangle>
                                             <Rectangle x:Name="HueMarker" Width="14" Height="3" Fill="White" Stroke="Black" StrokeThickness="0.5" Canvas.Top="58" IsHitTestVisible="False"/>
                                         </Canvas>
                                     </Border>
-
                                     <StackPanel Grid.Column="2" Margin="4,0,0,0">
-                                        <Grid Margin="0,0,0,6">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <StackPanel Grid.Column="0" Margin="0,0,3,0">
-                                                <TextBlock Text="Текущий" FontSize="10" Foreground="#80848E"/>
-                                                <Border x:Name="ColorPreviewBox" Height="28" CornerRadius="4" Background="#00D4AA" BorderBrush="#383A40" BorderThickness="1"/>
-                                            </StackPanel>
-                                            <StackPanel Grid.Column="1" Margin="3,0,0,0">
-                                                <TextBlock Text="Исходный" FontSize="10" Foreground="#80848E"/>
-                                                <Border x:Name="OrigColorBox" Height="28" CornerRadius="4" Background="#00D4AA" BorderBrush="#383A40" BorderThickness="1" Cursor="Hand" MouseDown="OrigColorBox_MouseDown"/>
-                                            </StackPanel>
-                                        </Grid>
-
-                                        <TextBlock x:Name="RgbInfoText" Text="R: 0   G: 212   B: 170" FontSize="11" Foreground="#DCDDDE" Margin="0,0,0,4"/>
-                                        <DockPanel Margin="0,0,0,6">
-                                            <TextBlock Text="A:" FontSize="11" Foreground="#B5BAC1" Width="18" VerticalAlignment="Center"/>
-                                            <TextBlock x:Name="TxtA" Text="255" FontSize="11" Width="26" DockPanel.Dock="Right" VerticalAlignment="Center"/>
-                                            <Slider x:Name="SliderA" Minimum="20" Maximum="255" Value="255" ValueChanged="AlphaSlider_Changed"/>
-                                        </DockPanel>
-                                        <TextBox x:Name="HexColorBox" Text="#FF00D4AA" Height="24" Background="#18191C" Foreground="White" BorderBrush="#383A40" TextAlignment="Center" VerticalContentAlignment="Center" LostFocus="HexColorBox_LostFocus"/>
+                                        <TextBlock Text="Текущий цвет" FontSize="10" Foreground="#80848E"/>
+                                        <Border x:Name="ColorPreviewBox" Height="32" CornerRadius="4" Background="#00D4AA" BorderBrush="#383A40" BorderThickness="1" Margin="0,2,0,6"/>
+                                        <TextBlock x:Name="RgbInfoText" Text="R: 0   G: 212   B: 170" FontSize="11" Foreground="#DCDDDE" Margin="0,0,0,6"/>
+                                        <TextBox x:Name="HexColorBox" Text="#00D4AA" Height="26" Background="#18191C" Foreground="White" BorderBrush="#383A40" TextAlignment="Center" VerticalContentAlignment="Center" LostFocus="HexColorBox_LostFocus"/>
                                     </StackPanel>
                                 </Grid>
-
                                 <TextBlock x:Name="ScaleLabel" Text="3. Размер (Масштаб): 100%" FontSize="12.5" Foreground="#B5BAC1" Margin="0,0,0,3"/>
                                 <Slider x:Name="ScaleSlider" Minimum="50" Maximum="300" Value="100" TickFrequency="10" IsSnapToTickEnabled="True" Margin="0,0,0,10" ValueChanged="ScaleSlider_ValueChanged"/>
-
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                                    <TextBlock Text="Сдвиг X:" VerticalAlignment="Center" Margin="0,0,4,0"/>
-                                    <Button Content="-" Width="24" Height="22" Background="#313338" Foreground="White" BorderThickness="0" Click="Offset_Click" Tag="X-"/>
-                                    <TextBlock x:Name="OffsetXText" Text="0" Width="26" TextAlignment="Center" VerticalAlignment="Center"/>
-                                    <Button Content="+" Width="24" Height="22" Background="#313338" Foreground="White" BorderThickness="0" Margin="0,0,12,0" Click="Offset_Click" Tag="X+"/>
-                                    <TextBlock Text="Y:" VerticalAlignment="Center" Margin="0,0,4,0"/>
-                                    <Button Content="-" Width="24" Height="22" Background="#313338" Foreground="White" BorderThickness="0" Click="Offset_Click" Tag="Y-"/>
-                                    <TextBlock x:Name="OffsetYText" Text="0" Width="26" TextAlignment="Center" VerticalAlignment="Center"/>
-                                    <Button Content="+" Width="24" Height="22" Background="#313338" Foreground="White" BorderThickness="0" Click="Offset_Click" Tag="Y+"/>
+                                    <TextBlock Text="Сдвиг X:" VerticalAlignment="Center" Margin="0,0,4,0"/><Button Content="-" Width="24" Height="22" Background="#313338" Foreground="White" BorderThickness="0" Click="Offset_Click" Tag="X-"/><TextBlock x:Name="OffsetXText" Text="0" Width="26" TextAlignment="Center" VerticalAlignment="Center"/><Button Content="+" Width="24" Height="22" Background="#313338" Foreground="White" BorderThickness="0" Margin="0,0,12,0" Click="Offset_Click" Tag="X+"/>
+                                    <TextBlock Text="Y:" VerticalAlignment="Center" Margin="0,0,4,0"/><Button Content="-" Width="24" Height="22" Background="#313338" Foreground="White" BorderThickness="0" Click="Offset_Click" Tag="Y-"/><TextBlock x:Name="OffsetYText" Text="0" Width="26" TextAlignment="Center" VerticalAlignment="Center"/><Button Content="+" Width="24" Height="22" Background="#313338" Foreground="White" BorderThickness="0" Click="Offset_Click" Tag="Y+"/>
                                 </StackPanel>
-
-                                <DockPanel>
-                                    <Button Content="Загрузить PNG" Height="26" Padding="8,0" Background="#313338" Foreground="White" BorderThickness="0" Margin="0,0,6,0" Click="BtnLoadPng_Click"/>
-                                    <Button Content="Код в буфер" Height="26" Padding="8,0" Background="#313338" Foreground="#00D4AA" BorderThickness="0" Margin="0,0,6,0" Click="BtnExportCode_Click"/>
-                                    <Button Content="Вставить код" Height="26" Padding="8,0" Background="#313338" Foreground="White" BorderThickness="0" Click="BtnImportCode_Click"/>
-                                </DockPanel>
-
+                                <DockPanel><Button Content="Код в буфер" Height="26" Padding="10,0" Background="#313338" Foreground="#00D4AA" BorderThickness="0" Margin="0,0,6,0" Click="BtnExportCode_Click"/><Button Content="Вставить код" Height="26" Padding="10,0" Background="#313338" Foreground="White" BorderThickness="0" Click="BtnImportCode_Click"/></DockPanel>
                             </StackPanel>
                         </ScrollViewer>
-
                         <Border Grid.Column="1" Background="#18191C" CornerRadius="8" Padding="10">
                             <StackPanel>
-                                <TextBlock Text="ПИКСЕЛЬНЫЙ РЕДАКТОР (32×32)" FontSize="12" FontWeight="Bold" Foreground="#00D4AA" HorizontalAlignment="Center" Margin="0,0,0,4"/>
+                                <TextBlock Text="ПИКСЕЛЬНЫЙ РЕДАКТОР (16×16)" FontSize="12" FontWeight="Bold" Foreground="#00D4AA" HorizontalAlignment="Center" Margin="0,0,0,4"/>
                                 <TextBlock Text="ЛКМ — рисовать, ПКМ — стереть" FontSize="11" Foreground="#80848E" HorizontalAlignment="Center" Margin="0,0,0,8"/>
-                                <UniformGrid x:Name="PixelEditorGrid" Rows="32" Columns="32" Width="240" Height="240" Background="#383A40"/>
+                                <UniformGrid x:Name="PixelEditorGrid" Rows="16" Columns="16" Width="240" Height="240" Background="#383A40"/>
                                 <Button Content="Очистить сетку" Height="26" Margin="0,8,0,0" Background="#313338" Foreground="White" BorderThickness="0" Click="BtnClearGrid_Click"/>
                             </StackPanel>
                         </Border>
                     </Grid>
                 </Border>
-
                 <StackPanel Grid.Row="1" Margin="0,8,0,0">
-                    <CheckBox x:Name="ChkAutoCrosshair" IsChecked="True" Content="🎯 Автоматически включать прицел при запуске STALZONE" Margin="0,0,0,6" FontWeight="SemiBold" Foreground="#00D4AA"/><CheckBox x:Name="ChkHideOnRmb" IsChecked="True" Content="🎯 Автоматически скрывать прицел при зажатии ПКМ (в прицеле)" Margin="0,0,0,8" FontWeight="SemiBold" Foreground="#00D4AA"/>
-                    <Button x:Name="BtnToggleOverlay" Height="42" Content="🎯 ВКЛЮЧИТЬ ОВЕРЛЕЙ-ПРИЦЕЛ (F8)" Background="#2B2D31" Foreground="#00D4AA" BorderBrush="#00D4AA" BorderThickness="1" FontSize="14" FontWeight="Bold" Cursor="Hand" Click="BtnToggleOverlay_Click"/>
+                    <CheckBox x:Name="ChkAutoCrosshair" IsChecked="True" Content="🎯 Автоматически включать прицел при запуске STALZONE" Margin="0,0,0,6" FontWeight="SemiBold" Foreground="#00D4AA"/>
+                    <CheckBox x:Name="ChkHideOnRmb" IsChecked="True" Content="🎯 Скрывать прицел при зажатии ПКМ (в прицеле)" Margin="0,0,0,8" FontWeight="SemiBold" Foreground="#00D4AA"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="165"/></Grid.ColumnDefinitions>
+                        <Button x:Name="BtnToggleOverlay" Grid.Column="0" Height="42" Margin="0,0,8,0" Content="🎯 ВКЛЮЧИТЬ ПРИЦЕЛ (Insert)" Background="#2B2D31" Foreground="#00D4AA" BorderBrush="#00D4AA" BorderThickness="1" FontSize="14" FontWeight="Bold" Cursor="Hand" Click="BtnToggleOverlay_Click"/>
+                        <Button x:Name="BtnBindHotkey" Grid.Column="1" Height="42" Content="Клавиша: Insert" Background="#18191C" Foreground="#FFD700" BorderBrush="#383A40" BorderThickness="1" FontSize="12.5" FontWeight="SemiBold" Cursor="Hand" Click="BtnBindHotkey_Click" ToolTip="Нажмите и выберите любую клавишу или комбинацию (например, Alt+X, Insert, F9)"/>
+                    </Grid>
                 </StackPanel>
             </Grid>
+                <ScrollViewer x:Name="PanelHardware" Visibility="Collapsed" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="0,0,6,0">
+                <TextBlock Text="АППАРАТНАЯ ДИАГНОСТИКА И ОПТИМИЗАЦИЯ (v1.2)" FontSize="15" FontWeight="Bold" Foreground="#00D4AA" Margin="0,0,0,10"/>
+                <Border Background="#18191C" CornerRadius="6" Padding="12" Margin="0,0,0,12" BorderBrush="#313338" BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock x:Name="HwCpuText" Text="CPU: сканирование..." Foreground="White" FontSize="12.5" Margin="0,0,0,4"/>
+                        <TextBlock x:Name="HwRamText" Text="ОЗУ: сканирование..." Foreground="White" FontSize="12.5" Margin="0,0,0,4"/>
+                        <TextBlock x:Name="HwGpuText" Text="GPU: сканирование..." Foreground="#00D4AA" FontSize="12.5" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+                <TextBlock Text="АППАРАТНЫЕ УСКОРИТЕЛИ WINDOWS:" FontSize="12.5" FontWeight="SemiBold" Foreground="#B5BAC1" Margin="0,0,0,6"/>
+                <CheckBox x:Name="ChkPcieAspm" IsChecked="True" Content="Отключить энергосбережение шины PCIe (ASPM Off — макс. скорость GPU)" Foreground="White" Margin="0,0,0,6"/>
+                <CheckBox x:Name="ChkGpuPref" IsChecked="True" Content="Принудительно запускать игру на дискретной видеокарте (High Performance)" Foreground="White" Margin="0,0,0,6"/>
+                <CheckBox x:Name="ChkCorePark" IsChecked="True" Content="Отключить парковку ядер CPU (100% активных потоков без засыпания)" Foreground="White" Margin="0,0,0,6"/>
+                <CheckBox x:Name="ChkGameMode" IsChecked="True" Content="Включить Игровой режим Windows и аппаратный планировщик GPU (HAGS)" Foreground="White" Margin="0,0,0,10"/>
+                <Button x:Name="BtnApplyHw" Content="⚡ ПРИМЕНИТЬ АППАРАТНЫЕ НАСТРОЙКИ" Height="36" Background="#00D4AA" Foreground="#111214" FontWeight="Bold" BorderThickness="0" Cursor="Hand" Margin="0,0,0,14" Click="BtnApplyHw_Click"/>
+
+                <TextBlock Text="ОПТИМИЗАЦИЯ КОНФИГА ГРАФИКИ (OPTIONS.JSON):" FontSize="12.5" FontWeight="SemiBold" Foreground="#B5BAC1" Margin="0,0,0,6"/>
+                <Grid Margin="0,0,0,14">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ComboBox x:Name="CmbGfxPreset" SelectedIndex="0" Margin="0,0,8,0">
+                        <ComboBoxItem Content="Киберспорт (Макс. FPS + чистая видимость)"/>
+                        <ComboBoxItem Content="Баланс (Чёткая картинка + высокий FPS)"/>
+                        <ComboBoxItem Content="Восстановить исходный options.json"/>
+                    </ComboBox>
+                    <Button Grid.Column="1" Content="Применить пресет" Padding="14,0" Height="30" Background="#2B2D31" Foreground="#00D4AA" BorderBrush="#00D4AA" BorderThickness="1" FontWeight="SemiBold" Cursor="Hand" Click="BtnApplyGfxPreset_Click"/>
+                </Grid>
+
+                <TextBlock Text="УПРАВЛЕНИЕ КЭШЕМ ОПЕРАТИВНОЙ ПАМЯТИ ИГРЫ:" FontSize="12.5" FontWeight="SemiBold" Foreground="#B5BAC1" Margin="0,0,0,6"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Авто-очистка:" Foreground="White" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                    <ComboBox x:Name="CmbAutoTrim" Width="150" SelectedIndex="11" SelectionChanged="CmbAutoTrim_SelectionChanged" Margin="0,0,8,0">
+                        <ComboBoxItem Content="Выключено"/>
+                        <ComboBoxItem Content="Каждые 30 секунд"/>
+                        <ComboBoxItem Content="Каждую 1 минуту"/>
+                        <ComboBoxItem Content="Каждые 2 минуты"/>
+                        <ComboBoxItem Content="Каждые 3 минуты"/>
+                        <ComboBoxItem Content="Каждые 4 минуты"/>
+                        <ComboBoxItem Content="Каждые 5 минут"/>
+                        <ComboBoxItem Content="Каждые 6 минут"/>
+                        <ComboBoxItem Content="Каждые 7 минут"/>
+                        <ComboBoxItem Content="Каждые 8 минут"/>
+                        <ComboBoxItem Content="Каждые 9 минут"/>
+                        <ComboBoxItem Content="Каждые 10 минут"/>
+                    </ComboBox>
+                    <Button Content="🧹 Очистить сейчас" Padding="12,0" Height="28" Background="#2B2D31" Foreground="#00D4AA" BorderBrush="#313338" BorderThickness="1" Cursor="Hand" Click="BtnTrimNow_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
         </Grid>
     </Grid>
 </Window>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
