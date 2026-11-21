@@ -6,6 +6,38 @@
         <Style TargetType="CheckBox">
             <Setter Property="Foreground" Value="#F2F3F5"/>
             <Setter Property="FontSize" Value="13"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Background="Transparent">
+                            <Border x:Name="BoxBorder" Width="18" Height="18" CornerRadius="4"
+                                    Background="#18191C" BorderBrush="#4E5058" BorderThickness="1.5"
+                                    Margin="0,0,8,0" VerticalAlignment="Center">
+                                <Path x:Name="CheckMark" Data="M 3,8.5 L 6.8,12.5 L 14,4.5"
+                                      Stroke="#111214" StrokeThickness="2.4"
+                                      StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round"
+                                      Visibility="Collapsed"/>
+                            </Border>
+                            <ContentPresenter VerticalAlignment="Center" RecognizesAccessKey="True"/>
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="BoxBorder" Property="BorderBrush" Value="#00D4AA"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="BoxBorder" Property="Background" Value="#00D4AA"/>
+                                <Setter TargetName="BoxBorder" Property="BorderBrush" Value="#00D4AA"/>
+                                <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
         <Style x:Key="HelpBadge" TargetType="Border">
             <Setter Property="Width" Value="18"/>
@@ -29,3 +61,7 @@
         </Style>
     </Application.Resources>
 </Application>
+
+
+
+
