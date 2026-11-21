@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace SZOptimizer
 {
@@ -6,11 +7,8 @@ namespace SZOptimizer
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            this.DispatcherUnhandledException += (s, args) =>
-            {
-                MessageBox.Show(args.Exception.ToString(), "Ошибка при запуске SZOptimizer");
-                args.Handled = true;
-            };
+            AppDomain.CurrentDomain.UnhandledException += (s, ex) => MessageBox.Show(ex.ExceptionObject.ToString(), "Fatal Error");
+            DispatcherUnhandledException += (s, ex) => { MessageBox.Show(ex.Exception.ToString(), "UI Error"); ex.Handled = true; };
             base.OnStartup(e);
         }
     }
