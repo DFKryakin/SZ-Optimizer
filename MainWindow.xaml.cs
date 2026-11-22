@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -203,19 +203,40 @@ namespace SZOptimizer
         }
         protected override void OnSourceInitialized(EventArgs e) { base.OnSourceInitialized(e); IntPtr hwnd = new WindowInteropHelper(this).Handle; HwndSource.FromHwnd(hwnd)?.AddHook(TrayWndProc); _nid = new NOTIFYICONDATA { cbSize = Marshal.SizeOf<NOTIFYICONDATA>(), hWnd = hwnd, uID = 1, uFlags = 7, uCallbackMessage = 0x8001, hIcon = LoadIcon(IntPtr.Zero, new IntPtr(32512)), szTip = "SZ Optimizer (STALZONE)" }; Shell_NotifyIcon(0, ref _nid); if (Environment.GetCommandLineArgs().Contains("-autostart")) HideToTray(); }
         private IntPtr TrayWndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled) { if (msg == 0x8001) { int ev = lParam.ToInt32(); if (ev == 0x0202 || ev == 0x0203) RestoreFromTray(); else if (ev == 0x0205) { var cm = new ContextMenu(); var m1 = new MenuItem { Header = "Открыть SZ Optimizer" }; m1.Click += (s, a) => RestoreFromTray(); var m2 = new MenuItem { Header = "Выход" }; m2.Click += (s, a) => { _forceExit = true; Close(); }; cm.Items.Add(m1); cm.Items.Add(m2); cm.IsOpen = true; } } return IntPtr.Zero; }
-        private void HideToTray() { this.Hide(); this.ShowInTaskbar = false; }
+                private static void TrimSelfMemory()
+        {
+            try
+            {
+                GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
+                GC.WaitForPendingFinalizers();
+                GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
+                EmptyWorkingSet(System.Diagnostics.Process.GetCurrentProcess().Handle);
+            }
+            catch { }
+        }
+
+        private void HideToTray() { this.Hide(); this.ShowInTaskbar = false;             TrimSelfMemory();
+        }
         private void RestoreFromTray() { this.Show(); this.ShowInTaskbar = true; this.WindowState = WindowState.Normal; this.Activate(); }
         protected override void OnStateChanged(EventArgs e) { if (this.WindowState == WindowState.Minimized) HideToTray(); base.OnStateChanged(e); }
-                                private void SelectTab(Button activeBtn, UIElement activePanel)
+                                        private void SelectTab(Button activeBtn, UIElement activePanel)
         {
             PanelWindows.Visibility = Visibility.Collapsed;
             PanelResolution.Visibility = Visibility.Collapsed;
             PanelCrosshair.Visibility = Visibility.Collapsed;
-            PanelHardware.Visibility = Visibility.Collapsed; if (PanelJvm != null) PanelJvm.Visibility = Visibility.Collapsed; if (PanelSzCfg != null) PanelSzCfg.Visibility = Visibility.Collapsed; if (PanelSettings != null) PanelSettings.Visibility = Visibility.Collapsed; if (PanelJvm != null) PanelJvm.Visibility = Visibility.Collapsed; if (PanelSzCfg != null) PanelSzCfg.Visibility = Visibility.Collapsed; if (PanelSettings != null) PanelSettings.Visibility = Visibility.Collapsed;
+            PanelHardware.Visibility = Visibility.Collapsed;
+            if (PanelJvm != null) PanelJvm.Visibility = Visibility.Collapsed;
+            if (PanelSzCfg != null) PanelSzCfg.Visibility = Visibility.Collapsed;
+            if (PanelSettings != null) PanelSettings.Visibility = Visibility.Collapsed;
+
             TabWinBtn.Background = Brushes.Transparent;
             TabResBtn.Background = Brushes.Transparent;
             TabCrossBtn.Background = Brushes.Transparent;
-            TabHwBtn.Background = Brushes.Transparent; if (TabJvmBtn != null) TabJvmBtn.Background = Brushes.Transparent; if (TabSzCfgBtn != null) { TabSzCfgBtn.Background = Brushes.Transparent; if (TabSettingsBtn != null) TabSettingsBtn.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#18191C")); TabSzCfgBtn.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B5BAC1")); } if (TabJvmBtn != null) TabJvmBtn.Background = Brushes.Transparent; if (TabSzCfgBtn != null) { TabSzCfgBtn.Background = Brushes.Transparent; if (TabSettingsBtn != null) TabSettingsBtn.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#18191C")); TabSzCfgBtn.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B5BAC1")); }
+            TabHwBtn.Background = Brushes.Transparent;
+            if (TabJvmBtn != null) TabJvmBtn.Background = Brushes.Transparent;
+            if (TabSzCfgBtn != null) { TabSzCfgBtn.Background = Brushes.Transparent; TabSzCfgBtn.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B5BAC1")); }
+            if (TabSettingsBtn != null) TabSettingsBtn.Background = Brushes.Transparent;
+
             activePanel.Visibility = Visibility.Visible;
             activeBtn.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2B2D31"));
         }
@@ -245,9 +266,9 @@ namespace SZOptimizer
                         int.TryParse(p[0], out _currentThemeIdx);
                         double.TryParse(p[1].Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out _panelOpacity);
                         if (ChkStartMinimized != null) ChkStartMinimized.IsChecked = p[2] == "1";
-                        if (ChkMinimizeOnClose != null) ChkMinimizeOnClose.IsChecked = p[3] == "1";
+                        if (ChkMinimizeOnClose != null) ChkMinimizeOnClose.IsChecked = p.Length > 3 ? p[3] == "1" : true;
                         if (ChkSoundFeedback != null) ChkSoundFeedback.IsChecked = p[4] == "1";
-                        if (SldPanelOpacity != null) SldPanelOpacity.Value = Math.Clamp(_panelOpacity * 100, 45, 98);
+                        if (SldPanelOpacity != null) SldPanelOpacity.Value = Math.Clamp(_panelOpacity * 100, 45, 100);
                     }
                 }
                 catch { }
@@ -278,7 +299,7 @@ namespace SZOptimizer
         private void ApplyThemeLive(int idx, double opacity)
         {
             _currentThemeIdx = Math.Clamp(idx, 0, 5);
-            _panelOpacity = Math.Clamp(opacity, 0.45, 0.98);
+            _panelOpacity = Math.Clamp(opacity, 0.45, 1.0);
             string[] accents = { "#00D4AA", "#E03E42", "#76FF03", "#FF7A00", "#00E5FF", "#F5C542" };
             string[] cardHex = { "#161D1E", "#1F1719", "#172117", "#211B16", "#141A29", "#212017" };
             string[] sideHex = { "#111617", "#171214", "#111711", "#171310", "#0E121C", "#171611" };
@@ -308,7 +329,7 @@ namespace SZOptimizer
                 {
                     if (b.BorderThickness.Right == 1 && b.CornerRadius.TopLeft == 0)
                         b.Background = sideBrush;
-                    else if (b.Background is SolidColorBrush sb && sb.Color.R < 55 && sb.Color.G < 55 && sb.Color.B < 60 && b.CornerRadius.TopLeft >= 6)
+                    else if (b.TemplatedParent == null && b.Background is SolidColorBrush sb && sb.Color.R < 55 && sb.Color.G < 55 && sb.Color.B < 60 && b.CornerRadius.TopLeft >= 6 && b.Width > 25)
                         b.Background = cardBrush;
                 }
 
